@@ -43,9 +43,9 @@ const audienceCards = [
 ] as const;
 
 const socialProof = [
-  { title: "Designed using real lesson experience", body: "Built from patterns seen across everyday teaching." },
+  { title: "Designed with a working instructor", body: "Shaped by our co-founder, a DVSA-approved driving instructor." },
   { title: "Structured driving education", body: "Focused on skill-building across every stage of learning." },
-  { title: "Created by a DVSA-approved driving instructor", body: "Instructor-led, not generic advice." },
+  { title: "Built on the DVSA skills framework", body: "Shaped with practising instructors, not generic advice." },
   { title: "Clear Progress Insights and next steps", body: "Plain English you can use straight away." },
 ] as const;
 
@@ -346,8 +346,8 @@ export async function MarketingHomePage() {
 
       {/* Social proof, preserved with existing metric badges */}
       <Section
-        eyebrow="Experience"
-        title="Built from real-world driving instruction experience"
+        eyebrow="Who built it"
+        title="Built by a software engineer and a DVSA-approved driving instructor"
       >
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {socialProof.map((item) => (
@@ -362,11 +362,14 @@ export async function MarketingHomePage() {
         </div>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <span className="rounded-full border border-brand-200 bg-white px-4 py-2 text-xs font-medium text-brand-600">
-            1000+ lessons&apos; worth of teaching experience
+            Independent · Not affiliated with DVSA
           </span>
-          <span className="rounded-full border border-dashed border-brand-200 bg-brand-50/50 px-4 py-2 text-xs font-medium text-brand-500">
-            Used by learners and instructors across the UK
-          </span>
+          <Link
+            href="/about"
+            className="rounded-full border border-dashed border-brand-200 bg-brand-50/50 px-4 py-2 text-xs font-medium text-brand-500 transition hover:border-teal-300 hover:text-teal-800"
+          >
+            How Pass Pilot started →
+          </Link>
         </div>
       </Section>
 
@@ -422,7 +425,7 @@ export async function MarketingHomePage() {
           </p>
         </div>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <TrustBadge title="Created by an approved driving instructor" description="Instructor-led insight." />
+          <TrustBadge title="Built on the DVSA skills framework" description="Shaped with practising instructors." />
           <TrustBadge title="Structured driving education" description="Skills for every stage." />
           <TrustBadge title="Clear plain-English guidance" description="No jargon or hype." />
           <TrustBadge title="Secure checkout and saved progress" description="Stripe billing · saved reports." />

@@ -228,7 +228,7 @@ export function WelcomeLanding() {
             </Link>
           </div>
           <p className="mx-auto mt-4 max-w-sm text-xs leading-relaxed text-brand-500">
-            Secure &amp; private · Your data is protected · Trusted by learners &amp; instructors
+            Secure &amp; private · Your data is protected · Independent, not affiliated with DVSA
           </p>
           <p className="mt-8 text-sm text-brand-600">
             Prefer the full overview with FAQs &amp; sample report?{" "}

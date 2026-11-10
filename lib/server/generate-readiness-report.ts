@@ -66,7 +66,7 @@ JSON shape (STRICT JSON only):
 
 **summary** ("Your debrief"):
 - One paragraph, about 80-140 words.
-- Second person only ("you/your"). Never third person ("Philip has", "the learner is").
+- Second person only ("you/your"). Never third person ("Alex has", "the learner is").
 - Include: learner first name once; overall readiness judgement tied to readinessLabel; 1-2 clear strengths from assessment data; main thing holding them back from what the learner selected; syllabus topics still not covered that matter for test readiness (count plus a few examples in usual teaching order); specific driving behaviour to improve; test-date awareness if booked; practical next step.
 - Do not narrate entire checklists. Name the learner's selected difficulties explicitly, then summarise uncovered syllabus breadth in one clause (how many topics remain and a few early-in-sequence examples).
 - Do not repeat the coach note.

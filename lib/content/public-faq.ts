@@ -12,7 +12,7 @@ export const PUBLIC_FAQ: PublicFaqItem[] = [
   },
   {
     q: "Is this official DVSA guidance?",
-    a: "No. Pass Pilot is independent and not affiliated with DVSA. It is produced by a DVSA-approved driving instructor to complement lessons.",
+    a: "No. Pass Pilot is independent and not affiliated with DVSA. It follows the DVSA skills framework and is designed to complement lessons with your instructor.",
   },
   {
     q: "Does Pass Pilot guarantee I will pass?",

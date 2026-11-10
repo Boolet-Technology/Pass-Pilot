@@ -19,8 +19,8 @@ function assert(condition: boolean, message: string) {
 }
 
 const base: AssessmentPayload = {
-  fullName: "Philip Test",
-  email: "philip@test.com",
+  fullName: "Alex Test",
+  email: "alex@test.com",
   lessonsTaken: 30,
   testBooked: "yes",
   testDate: "2026-06-23",

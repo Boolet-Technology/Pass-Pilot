@@ -5,7 +5,7 @@ export const PLATFORM = {
   heroSubheading:
     "Pass Pilot helps learners, instructors and supervisors understand progress, improve driving skills and prepare confidently for test day.",
   aboutIntro:
-    "Pass Pilot was created by a DVSA-approved driving instructor to make driving education more structured, accessible and effective for learners, instructors and supervisors.",
+    "Pass Pilot was created to make driving education more structured, accessible and effective for learners, instructors and supervisors.",
   companyDescription:
     "Helping learners, instructors and supervisors build skills, track progress and prepare confidently for every stage of the driving journey.",
 } as const;

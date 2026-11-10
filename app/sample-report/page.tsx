@@ -13,7 +13,7 @@ import { webPageJsonLd } from "@/lib/seo/json-ld";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { redirectIfAuthenticated } from "@/lib/server/redirect-if-authenticated";
 
-const sampleDescription = `Preview a realistic ${SMART_UI.report} from Pass Pilot: readiness score, risks, ${SMART_UI.recommendations.toLowerCase()}, ${SMART_UI.debrief.toLowerCase()}, and lesson focus. Created by a DVSA-approved driving instructor.`;
+const sampleDescription = `Preview a realistic ${SMART_UI.report} from Pass Pilot: readiness score, risks, ${SMART_UI.recommendations.toLowerCase()}, ${SMART_UI.debrief.toLowerCase()}, and lesson focus. Aligned with the DVSA skills framework.`;
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Sample Premium Test Ready Score Report",
@@ -160,8 +160,8 @@ export default async function SampleReportPage() {
         <div className="rounded-2xl border border-amber-200 bg-amber-50/60 p-5 text-sm text-amber-950">
           <p className="font-semibold">Example disclaimer</p>
           <p className="mt-2">
-            This sample is illustrative only. Pass Pilot is independent and not affiliated with DVSA. It is created by a
-            DVSA-approved driving instructor, is not official DVSA guidance, and does not guarantee pass or fail
+            This sample is illustrative only. Pass Pilot is independent and not affiliated with DVSA. It is aligned with the
+            DVSA skills framework, but is not official DVSA guidance, and does not guarantee pass or fail
             outcomes.
           </p>
         </div>
