@@ -424,7 +424,7 @@ export function ResultsView() {
           <p className="font-semibold text-amber-950">Disclaimer</p>
           <p className="mt-2 text-amber-950/95">
             This TestReady Score report is guidance only. It is not driving instruction, not official DVSA advice, and
-            not a guarantee of test outcomes. {SITE.name} is created by a DVSA-approved driving instructor and combines
+            not a guarantee of test outcomes. {SITE.name} follows the DVSA skills framework and combines
             scoring with Pass Pilot Smart intelligence. Always review with your instructor alongside how you drive.
           </p>
         </div>
