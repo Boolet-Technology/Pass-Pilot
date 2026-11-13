@@ -1,6 +1,6 @@
 import type { AssessmentFormValues } from "./validation";
 
-export const ASSESSMENT_FORM_DRAFT_STORAGE_KEY = "passready_assessment_form_draft";
+export const ASSESSMENT_FORM_DRAFT_STORAGE_KEY = "passpilot_assessment_form_draft";
 
 type AssessmentFormDraftRecord = {
   version: 1;

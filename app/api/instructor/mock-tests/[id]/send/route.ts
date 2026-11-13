@@ -10,7 +10,7 @@ import { isSupabaseConfigured } from "@/lib/server/supabase";
 
 export const runtime = "nodejs";
 
-type Props = { params: { id: string } };
+type Props = { params: Promise<{ id: string }> };
 
 function jsonError(status: number, code: string, message: string) {
   return NextResponse.json({ success: false as const, error: { code, message } }, { status });
@@ -22,11 +22,11 @@ export async function POST(_request: Request, { params }: Props) {
   if (!isSupabaseConfigured()) return jsonError(503, "NOT_CONFIGURED", "Database not configured.");
 
   try {
-    const mockTest = await getMockTestForInstructor(params.id, auth.userId);
+    const mockTest = await getMockTestForInstructor((await params).id, auth.userId);
     if (!mockTest) return jsonError(404, "NOT_FOUND", "Mock test not found.");
 
     const { delivery, recipientEmail } = await sendMockTestToLearner({
-      mockTestId: params.id,
+      mockTestId: (await params).id,
       instructorUserId: auth.userId,
     });
 
@@ -41,7 +41,7 @@ export async function POST(_request: Request, { params }: Props) {
 
     await sendMockTestReportEmail({
       toEmail: recipientEmail,
-      viewUrl: `${getAppUrlForEmail()}/mock-tests/${params.id}`,
+      viewUrl: `${getAppUrlForEmail()}/mock-tests/${(await params).id}`,
       instructorName,
       outcome: mockTest.outcome,
       pupilName: mockTest.pupil_name_snapshot?.trim() || "Learner",

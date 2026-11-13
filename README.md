@@ -1,15 +1,14 @@
-# PassReady
+# Pass Pilot
 
-PassReady is a web application that helps learner drivers assess whether they are ready for their UK practical driving test. This repository now includes a production-minded backend flow: Stripe paywall, server-side scoring, and Supabase persistence for payments and reports.
+Pass Pilot is a web application that helps learner drivers assess whether they are ready for their UK practical driving test. This repository now includes a production-minded backend flow: Stripe paywall, server-side scoring, and Supabase persistence for payments and reports.
 
 Public conversion pages include a premium-focused landing experience, a sample report preview, trust/FAQ content, and consistent one-time pricing copy (`£4.99`).
 
 ## Getting started
 
-Run commands from the **`passready/`** directory (where `package.json` lives):
+Run commands from the repository root (where `package.json` lives):
 
 ```bash
-cd passready
 npm install
 npm run dev
 ```
@@ -24,7 +23,7 @@ npm start
 ## Project structure
 
 ```
-passready/
+Pass-Pilot/
 ├── app/                      # Next.js App Router routes & global styles
 │   ├── layout.tsx            # Root layout, fonts, metadata, chrome
 │   ├── page.tsx              # Landing page
@@ -135,7 +134,7 @@ This is intentionally lightweight and should be replaced by account-based auth l
 ## Payment and finalise flow
 
 1. User submits assessment form.
-2. App stores pending assessment under `passready_pending_assessment`.
+2. App stores pending assessment under `passpilot_pending_assessment`.
 3. App calls `/api/checkout/create-session` and redirects to Stripe Checkout.
 4. Stripe returns to `/checkout/success?session_id=...`.
 5. Success flow calls `/api/checkout/verify-session` (server-side Stripe verification).

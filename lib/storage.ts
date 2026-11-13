@@ -27,8 +27,8 @@ function normalizeStoredAssessmentJson(json: unknown): unknown {
   return json;
 }
 
-export const ASSESSMENT_STORAGE_KEY = "passready_assessment";
-export const PENDING_ASSESSMENT_STORAGE_KEY = "passready_pending_assessment";
+export const ASSESSMENT_STORAGE_KEY = "passpilot_assessment";
+export const PENDING_ASSESSMENT_STORAGE_KEY = "passpilot_pending_assessment";
 
 export type NormalizedPersistedRecord = StoredAssessmentV1 | PersistedAssessmentRecordV2;
 

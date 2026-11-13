@@ -10,7 +10,7 @@ import { isSupabaseConfigured } from "@/lib/server/supabase";
 
 export const runtime = "nodejs";
 
-type Props = { params: { id: string } };
+type Props = { params: Promise<{ id: string }> };
 
 function jsonError(status: number, code: string, message: string) {
   return NextResponse.json({ success: false as const, error: { code, message } }, { status });
@@ -28,7 +28,7 @@ export async function POST(request: Request, { params }: Props) {
     const action = body.action === "decline" ? "decline" : body.action === "accept" ? "accept" : null;
     if (!action) return jsonError(400, "VALIDATION", "Action must be accept or decline.");
 
-    const notification = await getNotificationForUser(params.id, auth.userId);
+    const notification = await getNotificationForUser((await params).id, auth.userId);
     if (!notification || notification.resolved_at) {
       return jsonError(404, "NOT_FOUND", "Notification not found.");
     }
@@ -48,7 +48,7 @@ export async function POST(request: Request, { params }: Props) {
       action,
     });
 
-    await resolveNotification(params.id, auth.userId, {
+    await resolveNotification((await params).id, auth.userId, {
       ...notification.action_payload,
       response: action,
     });

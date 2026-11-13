@@ -17,13 +17,13 @@ function jsonError(status: number, code: string, message: string) {
   return NextResponse.json({ success: false as const, error: { code, message } }, { status });
 }
 
-export async function GET(_request: Request, context: { params: { id: string } }) {
+export async function GET(_request: Request, context: { params: Promise<{ id: string }> }) {
   const auth = await requireInstructorApiUser();
   if (!auth.ok) return jsonError(auth.status, "AUTH", auth.message);
   if (!isSupabaseConfigured()) return jsonError(503, "NOT_CONFIGURED", "Database not configured.");
 
   try {
-    const lesson = await getLessonForInstructor(context.params.id, auth.userId);
+    const lesson = await getLessonForInstructor((await context.params).id, auth.userId);
     if (!lesson) return jsonError(404, "NOT_FOUND", "Lesson not found.");
     return NextResponse.json({ success: true as const, lesson });
   } catch (e) {
@@ -31,7 +31,7 @@ export async function GET(_request: Request, context: { params: { id: string } }
   }
 }
 
-export async function PATCH(request: Request, context: { params: { id: string } }) {
+export async function PATCH(request: Request, context: { params: Promise<{ id: string }> }) {
   const auth = await requireInstructorApiUser();
   if (!auth.ok) return jsonError(auth.status, "AUTH", auth.message);
   if (!isSupabaseConfigured()) return jsonError(503, "NOT_CONFIGURED", "Database not configured.");
@@ -39,11 +39,11 @@ export async function PATCH(request: Request, context: { params: { id: string } 
   try {
     const raw = await request.json();
     if (raw?.action === "complete") {
-      const lesson = await completeInstructorLesson(context.params.id, auth.userId);
+      const lesson = await completeInstructorLesson((await context.params).id, auth.userId);
       return NextResponse.json({ success: true as const, lesson });
     }
     if (raw?.action === "cancel") {
-      const lesson = await setInstructorLessonStatus(context.params.id, auth.userId, "cancelled");
+      const lesson = await setInstructorLessonStatus((await context.params).id, auth.userId, "cancelled");
       return NextResponse.json({ success: true as const, lesson });
     }
 
@@ -53,7 +53,7 @@ export async function PATCH(request: Request, context: { params: { id: string } 
     }
 
     const lesson = await updateInstructorLesson({
-      lessonId: context.params.id,
+      lessonId: (await context.params).id,
       instructorUserId: auth.userId,
       payload: parsed.data,
     });
@@ -63,13 +63,13 @@ export async function PATCH(request: Request, context: { params: { id: string } 
   }
 }
 
-export async function DELETE(_request: Request, context: { params: { id: string } }) {
+export async function DELETE(_request: Request, context: { params: Promise<{ id: string }> }) {
   const auth = await requireInstructorApiUser();
   if (!auth.ok) return jsonError(auth.status, "AUTH", auth.message);
   if (!isSupabaseConfigured()) return jsonError(503, "NOT_CONFIGURED", "Database not configured.");
 
   try {
-    await deleteInstructorLesson(context.params.id, auth.userId);
+    await deleteInstructorLesson((await context.params).id, auth.userId);
     return NextResponse.json({ success: true as const });
   } catch (e) {
     return jsonError(500, "LESSON_DELETE_ERROR", e instanceof Error ? e.message : "Unable to delete lesson.");

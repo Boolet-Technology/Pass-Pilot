@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/Button";
+import { ADMIN_SESSION_KEY } from "@/lib/admin/session";
 
 type Overview = {
   totalReports: number;
@@ -39,7 +40,7 @@ export function AdminAnalyticsView() {
   const [sales, setSales] = useState<Sale[]>([]);
 
   useEffect(() => {
-    const saved = sessionStorage.getItem("passready_admin_key");
+    const saved = sessionStorage.getItem(ADMIN_SESSION_KEY);
     if (saved) {
       setKey(saved);
       setActiveKey(saved);
@@ -75,7 +76,7 @@ export function AdminAnalyticsView() {
   async function onUnlock(e: React.FormEvent) {
     e.preventDefault();
     if (!key.trim()) return;
-    sessionStorage.setItem("passready_admin_key", key.trim());
+    sessionStorage.setItem(ADMIN_SESSION_KEY, key.trim());
     setActiveKey(key.trim());
     await loadAnalytics(key.trim());
   }

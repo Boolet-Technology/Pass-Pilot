@@ -8,15 +8,14 @@ import { getSupabaseAnonKey, getSupabaseUrl } from "./url";
  * Next.js Server Components / Route Handlers: cookie-backed Supabase session.
  */
 export function createSupabaseServerClient() {
-  const cookieStore = cookies();
-
   return createServerClient(getSupabaseUrl(), getSupabaseAnonKey(), {
     cookies: {
-      getAll() {
-        return cookieStore.getAll();
+      async getAll() {
+        return (await cookies()).getAll();
       },
-      setAll(cookiesToSet, _headers) {
+      async setAll(cookiesToSet, _headers) {
         try {
+          const cookieStore = await cookies();
           cookiesToSet.forEach(({ name, value, options }) =>
             cookieStore.set(name, value, options),
           );

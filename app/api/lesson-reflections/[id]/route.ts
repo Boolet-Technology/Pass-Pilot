@@ -37,13 +37,13 @@ async function canAccessReflection(authUserId: string, learnerUserId: string): P
   return false;
 }
 
-export async function GET(_request: Request, context: { params: { id: string } }) {
+export async function GET(_request: Request, context: { params: Promise<{ id: string }> }) {
   const auth = await requireVerifiedApiUser();
   if (!auth.ok) return jsonError(auth.status, "AUTH", auth.message);
   if (!isSupabaseConfigured()) return jsonError(503, "NOT_CONFIGURED", "Database not configured.");
 
   try {
-    const reflection = await getLessonReflectionById(context.params.id);
+    const reflection = await getLessonReflectionById((await context.params).id);
     if (!reflection) return jsonError(404, "NOT_FOUND", "Reflection not found.");
 
     const allowed = await canAccessReflection(auth.userId, reflection.user_id);
