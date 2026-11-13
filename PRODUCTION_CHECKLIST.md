@@ -1,6 +1,6 @@
 # Pass Pilot — Production Deployment Checklist
 
-Use this checklist before pointing a live domain at the Pass Pilot Next.js app (`passready/`). It covers environment configuration, third-party services, DNS, database migrations, and end-to-end smoke tests.
+Use this checklist before pointing a live domain at the Pass Pilot Next.js app (repository root). It covers environment configuration, third-party services, DNS, database migrations, and end-to-end smoke tests.
 
 **Last audited:** June 2026  
 **Build status:** `npm run build`, `npm run lint`, and `npx tsc --noEmit` all pass (lint has non-blocking `react-hooks/exhaustive-deps` warnings in admin/assessment components).
@@ -73,7 +73,7 @@ Set these in **Vercel → Project → Settings → Environment Variables** for *
 ### Vercel project settings
 
 - **Framework:** Next.js (see `vercel.json`)
-- **Root directory:** `passready/` if the repo root is the monorepo wrapper
+- **Root directory:** leave as the repository root (`./`)
 - **Node:** 20.x recommended (matches `@types/node`)
 - **Build command:** `npm run build`
 - **Install command:** `npm install`
@@ -377,7 +377,6 @@ Run these on the **production URL** after deploy, using fresh test accounts wher
 ## Build & CI verification (local / pre-push)
 
 ```bash
-cd passready
 npm run lint          # warnings only (hook deps)
 npx tsc --noEmit      # typecheck
 npm run build         # production build

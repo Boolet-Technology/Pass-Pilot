@@ -1,6 +1,6 @@
 /**
  * Run: npx --yes tsx scripts/test-scoring.ts
- * (from the passready package root)
+ * (from the repository root)
  */
 import { computeMockReadiness } from "../lib/scoring";
 import { SCORING_BENCHMARK_FIXTURES } from "../lib/scoring-fixtures";

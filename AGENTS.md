@@ -1,7 +1,7 @@
-# PassReady, instructions for AI agents
+# Pass Pilot, instructions for AI agents
 
 ## Purpose
-PassReady estimates whether a learner is ready to pass their driving test. It produces:
+Pass Pilot estimates whether a learner is ready to pass their driving test. It produces:
 
 - A pass probability score  
 - Top risk areas  

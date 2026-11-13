@@ -1,4 +1,4 @@
--- PassReady Supabase schema
+-- Pass Pilot Supabase schema
 -- Run this in the Supabase SQL editor.
 
 create extension if not exists "pgcrypto";

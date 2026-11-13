@@ -1,18 +1,12 @@
 # Vercel deployment
 
-The Next.js app lives in **`passready/`**, not the repository root.
+The Pass Pilot Next.js app lives at the **repository root** (`app/`, `next.config.mjs` and `package.json` are top level).
 
 ## Required project setting
 
-In [Vercel](https://vercel.com) → your project → **Settings** → **General** → **Root Directory**:
+In [Vercel](https://vercel.com) → your project → **Settings** → **General** → **Root Directory**, leave it empty (`./`). If it was previously set to a subfolder, clear it, save and **Redeploy**, otherwise every URL returns **404 NOT_FOUND**.
 
-1. Click **Edit**
-2. Set Root Directory to: `passready`
-3. Save and **Redeploy** (Deployments → … → Redeploy)
-
-Without this, builds run at the repo root (no `app/`, no `next.config.mjs`) and every URL returns **404 NOT_FOUND**.
-
-## Build settings (after Root Directory is `passready`)
+## Build settings
 
 | Setting | Value |
 |--------|--------|
@@ -23,4 +17,4 @@ Without this, builds run at the repo root (no `app/`, no `next.config.mjs`) and 
 
 ## Environment variables
 
-Set in Vercel → **Settings** → **Environment Variables** (same names as `.env.local` in `passready/`).
+Set in Vercel → **Settings** → **Environment Variables** (same names as `.env.local` at the repository root).

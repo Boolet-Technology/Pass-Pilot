@@ -1,4 +1,4 @@
-export const ADMIN_SESSION_KEY = "passready_admin_key";
+export const ADMIN_SESSION_KEY = "passpilot_admin_key";
 
 export async function validateAdminAccessKey(
   key: string,

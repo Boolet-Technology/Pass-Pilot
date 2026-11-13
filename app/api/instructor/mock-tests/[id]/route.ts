@@ -14,14 +14,14 @@ function jsonError(status: number, code: string, message: string) {
   return NextResponse.json({ success: false as const, error: { code, message } }, { status });
 }
 
-type Ctx = { params: { id: string } };
+type Ctx = { params: Promise<{ id: string }> };
 
 export async function GET(_request: Request, ctx: Ctx) {
   const auth = await requireInstructorApiUser();
   if (!auth.ok) return jsonError(auth.status, "AUTH", auth.message);
   if (!isSupabaseConfigured()) return jsonError(503, "NOT_CONFIGURED", "Database not configured.");
 
-  const { id } = ctx.params;
+  const { id } = await ctx.params;
   const row = await getMockTestForInstructor(id, auth.userId);
   if (!row) return jsonError(404, "NOT_FOUND", "Mock test not found.");
   return NextResponse.json({ success: true as const, mockTest: row });
@@ -32,7 +32,7 @@ export async function PATCH(request: Request, ctx: Ctx) {
   if (!auth.ok) return jsonError(auth.status, "AUTH", auth.message);
   if (!isSupabaseConfigured()) return jsonError(503, "NOT_CONFIGURED", "Database not configured.");
 
-  const { id } = ctx.params;
+  const { id } = await ctx.params;
   const existing = await getMockTestForInstructor(id, auth.userId);
   if (!existing) return jsonError(404, "NOT_FOUND", "Mock test not found.");
 

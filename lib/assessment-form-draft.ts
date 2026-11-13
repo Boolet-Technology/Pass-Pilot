@@ -1,6 +1,8 @@
 import type { AssessmentFormValues } from "./validation";
 
-export const ASSESSMENT_FORM_DRAFT_STORAGE_KEY = "passready_assessment_form_draft";
+export const ASSESSMENT_FORM_DRAFT_STORAGE_KEY = "passpilot_assessment_form_draft";
+/** Pre-rename key, still read so existing drafts survive the PassReady → Pass Pilot rename. */
+const LEGACY_ASSESSMENT_FORM_DRAFT_STORAGE_KEY = "passready_assessment_form_draft";
 
 type AssessmentFormDraftRecord = {
   version: 1;
@@ -120,7 +122,9 @@ export function loadAssessmentFormDraft(): Partial<AssessmentFormValues> | null 
   if (typeof window === "undefined") return null;
 
   try {
-    const raw = localStorage.getItem(ASSESSMENT_FORM_DRAFT_STORAGE_KEY);
+    const raw =
+      localStorage.getItem(ASSESSMENT_FORM_DRAFT_STORAGE_KEY) ??
+      localStorage.getItem(LEGACY_ASSESSMENT_FORM_DRAFT_STORAGE_KEY);
     if (!raw) return null;
     const json = JSON.parse(raw) as unknown;
     if (!json || typeof json !== "object" || (json as { version?: number }).version !== 1) return null;
@@ -134,6 +138,7 @@ export function clearAssessmentFormDraft(): void {
   if (typeof window === "undefined") return;
   try {
     localStorage.removeItem(ASSESSMENT_FORM_DRAFT_STORAGE_KEY);
+    localStorage.removeItem(LEGACY_ASSESSMENT_FORM_DRAFT_STORAGE_KEY);
   } catch {
     // ignore
   }

@@ -27,8 +27,23 @@ function normalizeStoredAssessmentJson(json: unknown): unknown {
   return json;
 }
 
-export const ASSESSMENT_STORAGE_KEY = "passready_assessment";
-export const PENDING_ASSESSMENT_STORAGE_KEY = "passready_pending_assessment";
+export const ASSESSMENT_STORAGE_KEY = "passpilot_assessment";
+export const PENDING_ASSESSMENT_STORAGE_KEY = "passpilot_pending_assessment";
+
+/** Pre-rename keys, still read so saved/in-checkout data survives the PassReady → Pass Pilot rename. */
+const LEGACY_STORAGE_KEYS: Record<string, string> = {
+  [ASSESSMENT_STORAGE_KEY]: "passready_assessment",
+  [PENDING_ASSESSMENT_STORAGE_KEY]: "passready_pending_assessment",
+};
+
+function readStorage(key: string): string | null {
+  return localStorage.getItem(key) ?? localStorage.getItem(LEGACY_STORAGE_KEYS[key]);
+}
+
+function removeStorage(key: string): void {
+  localStorage.removeItem(key);
+  localStorage.removeItem(LEGACY_STORAGE_KEYS[key]);
+}
 
 export type NormalizedPersistedRecord = StoredAssessmentV1 | PersistedAssessmentRecordV2;
 
@@ -48,7 +63,7 @@ export function loadPersistedRecord(): NormalizedPersistedRecord | null {
   if (typeof window === "undefined") return null;
 
   try {
-    const raw = localStorage.getItem(ASSESSMENT_STORAGE_KEY);
+    const raw = readStorage(ASSESSMENT_STORAGE_KEY);
     if (!raw) return null;
 
     let json: unknown;
@@ -99,7 +114,7 @@ export function loadPersistedRecord(): NormalizedPersistedRecord | null {
 
 export function clearStoredAssessment(): void {
   try {
-    localStorage.removeItem(ASSESSMENT_STORAGE_KEY);
+    removeStorage(ASSESSMENT_STORAGE_KEY);
   } catch {
     // ignore
   }
@@ -116,7 +131,7 @@ export function savePendingAssessment(record: PendingAssessmentRecord): void {
 export function loadPendingAssessment(): PendingAssessmentRecord | null {
   if (typeof window === "undefined") return null;
   try {
-    const raw = localStorage.getItem(PENDING_ASSESSMENT_STORAGE_KEY);
+    const raw = readStorage(PENDING_ASSESSMENT_STORAGE_KEY);
     if (!raw) return null;
     const json = JSON.parse(raw) as unknown;
     const parsed = pendingAssessmentRecordSchema.safeParse(json);
@@ -128,7 +143,7 @@ export function loadPendingAssessment(): PendingAssessmentRecord | null {
 
 export function clearPendingAssessment(): void {
   try {
-    localStorage.removeItem(PENDING_ASSESSMENT_STORAGE_KEY);
+    removeStorage(PENDING_ASSESSMENT_STORAGE_KEY);
   } catch {
     // ignore
   }

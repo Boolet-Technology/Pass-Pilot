@@ -12,11 +12,11 @@ function jsonError(status: number, code: string, message: string) {
   return NextResponse.json({ success: false as const, error: { code, message } }, { status });
 }
 
-export async function GET(_request: Request, ctx: { params: { id: string } }) {
+export async function GET(_request: Request, ctx: { params: Promise<{ id: string }> }) {
   const auth = await requireVerifiedApiUser();
   if (!auth.ok) return jsonError(auth.status, "AUTH_REQUIRED", auth.message);
 
-  const parsed = paramsSchema.safeParse(ctx.params);
+  const parsed = paramsSchema.safeParse(await ctx.params);
   if (!parsed.success) return jsonError(400, "INVALID_ID", "Report id is invalid");
 
   try {

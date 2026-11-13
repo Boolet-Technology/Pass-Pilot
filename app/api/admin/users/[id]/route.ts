@@ -22,7 +22,7 @@ const patchUserSchema = z
     message: "Provide role and/or accountStatus to update.",
   });
 
-type RouteContext = { params: { id: string } };
+type RouteContext = { params: Promise<{ id: string }> };
 
 export async function GET(request: Request, context: RouteContext) {
   const gate = assertAdminAccess(getAdminKeyFromRequest(request));
@@ -36,7 +36,7 @@ export async function GET(request: Request, context: RouteContext) {
   }
 
   try {
-    const user = await getAdminUserById(context.params.id);
+    const user = await getAdminUserById((await context.params).id);
     if (!user) return jsonAdminError(404, "NOT_FOUND", "Account not found.");
     return NextResponse.json({ success: true as const, user });
   } catch (e) {
@@ -69,7 +69,7 @@ export async function PATCH(request: Request, context: RouteContext) {
 
   try {
     const user = await updateAdminUser({
-      userId: context.params.id,
+      userId: (await context.params).id,
       role: parsed.data.role,
       accountStatus: parsed.data.accountStatus,
     });
@@ -91,7 +91,7 @@ export async function DELETE(request: Request, context: RouteContext) {
   }
 
   try {
-    await deleteAdminUser(context.params.id);
+    await deleteAdminUser((await context.params).id);
     return NextResponse.json({ success: true as const });
   } catch (e) {
     return handleAdminRouteError(e, "Could not delete account.");
